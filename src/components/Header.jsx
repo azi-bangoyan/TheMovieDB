@@ -395,12 +395,23 @@ const SuggestionItem = styled.li`
     }
   }
 `;
+const Backdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 15;
+  display: ${({ open }) => (open ? "block" : "none")};
+
+  @media (min-width: 48rem) {
+    display: none;
+  }
+`;
 
 const SuggestionIcon = styled(FaSearch)`
   font-size: 0.875rem;
   color: #212529;
 `;
-/* ---------------- component ---------------- */
+
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -561,6 +572,7 @@ export default function Header() {
         >
           {open ? <FaTimes /> : <FaBars />}
         </MenuIcon>
+        <Backdrop open={open} onClick={() => setOpen(false)} />
         <SideMenu open={open} aria-hidden={!open}>
           <MenuList>
             <MenuItem>

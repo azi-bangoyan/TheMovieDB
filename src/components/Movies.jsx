@@ -11,6 +11,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  max-width: 25rem;
+  margin: 0 auto;
 
   @media (min-width: 48rem) {
     flex-direction: row;
@@ -265,6 +267,7 @@ const MovieRow = styled.div`
     flex-direction: column;
     height: auto;
     border: none;
+    height: 25rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0 0.125rem 0.5rem;
     border-radius: 0.75rem;
   }

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaSearch, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-/* ---------- Base Layout ---------- */
 const PageWrapper = styled.div`
   width: 100%;
   background: #fff;
@@ -238,7 +238,17 @@ export default function Search() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [suggestions, setSuggestions] = useState([]);
+  const formRef = useRef(null); 
 
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (formRef.current && !formRef.current.contains(e.target)) {
+        setSuggestions([]); // close dropdown
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -278,14 +288,13 @@ export default function Search() {
 
     fetchMovies();
   }, [query, currentPage]);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (term.trim()) {
       navigate(`/search?q=${encodeURIComponent(term)}&page=1`);
     }
   };
-
   const clearInput = () => {
     setTerm("");
     setResults([]);
@@ -375,33 +384,33 @@ export default function Search() {
 
   return (
     <PageWrapper>
-      <form onSubmit={handleSubmit} style={{ position: "relative" }}>
-  <SearchBarWrapper>
-    <IconLeft />
-    <Input
-      type="text"
-      placeholder="Search movies..."
-      value={term}
-      onChange={(e) => setTerm(e.target.value)}
-    />
-    {term && <ClearButton onClick={clearInput} />}
-  </SearchBarWrapper>
+      <form ref={formRef} onSubmit={handleSubmit} style={{ position: "relative" }}>
+        <SearchBarWrapper>
+          <IconLeft />
+          <Input
+            type="text"
+            placeholder="Search movies..."
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+          />
+          {term && <ClearButton onClick={clearInput} />}
+        </SearchBarWrapper>
 
-  {suggestions.length > 0 && (
-    <SuggestionList>
-      {suggestions.slice(0, 6).map((s) => (
-        <SuggestionItem
-          key={s.id}
-          onClick={() =>
-            navigate(`/search?q=${encodeURIComponent(s.name || s.title)}&page=1`)
-          }
-        >
-          {s.name || s.title}
-        </SuggestionItem>
-      ))}
-    </SuggestionList>
-  )}
-</form>
+        {suggestions.length > 0 && (
+          <SuggestionList>
+            {suggestions.slice(0, 6).map((s) => (
+              <SuggestionItem
+                key={s.id}
+                onClick={() =>
+                  navigate(`/search?q=${encodeURIComponent(s.name || s.title)}&page=1`)
+                }
+              >
+                {s.name || s.title}
+              </SuggestionItem>
+            ))}
+          </SuggestionList>
+        )}
+      </form>
       <ResultsWrapper>
         <Sidebar>
           <SectionTitle>Search Results</SectionTitle>
@@ -412,35 +421,44 @@ export default function Search() {
             </li>
           </SidebarList>
         </Sidebar>
-        <ResultsList>
-          {results.length > 0 ? (
-            <>
-              {results.map((movie) => (
-                <MovieCard key={movie.id}>
-                  <Poster
-                    src={
-                      movie.poster_path
-                        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                        : "https://via.placeholder.com/200x300?text=No+Image"
-                    }
-                    alt={movie.title}
-                  />
-                  <CardContent>
-                    <Title>{movie.title}</Title>
-                    <Meta>
-                      {movie.release_date ? new Date(movie.release_date).toLocaleDateString() : "—"}
-                    </Meta>
-                    <Overview>{movie.overview || "No overview available."}</Overview>
-                  </CardContent>
-                </MovieCard>
-              ))}
+       
+<ResultsList>
+  {results.length > 0 ? (
+    <>
+      {results.map((movie) => (
+        <Link
+          key={movie.id}
+          to={`/movie/${movie.id}`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <MovieCard>
+            <Poster
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                  : "https://via.placeholder.com/200x300?text=No+Image"
+              }
+              alt={movie.title}
+            />
+            <CardContent>
+              <Title>{movie.title}</Title>
+              <Meta>
+                {movie.release_date
+                  ? new Date(movie.release_date).toLocaleDateString()
+                  : "—"}
+              </Meta>
+              <Overview>{movie.overview || "No overview available."}</Overview>
+            </CardContent>
+          </MovieCard>
+        </Link>
+      ))}
 
-              {renderPagination()}
-            </>
-          ) : query ? (
-            <p>No results found for “{query}”.</p>
-          ) : null}
-        </ResultsList>
+      {renderPagination()}
+    </>
+  ) : query ? (
+    <p>No results found for “{query}”.</p>
+  ) : null}
+</ResultsList>
       </ResultsWrapper>
     </PageWrapper>
   );
