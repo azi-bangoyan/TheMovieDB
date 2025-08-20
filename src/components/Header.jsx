@@ -20,14 +20,15 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 0;
+  padding: .75rem 0;
   background-color: rgb(3, 37, 65);
   box-sizing: border-box;
   position: relative;
   z-index: 20;
+  padding: .3438rem 1.25rem .3438rem 2.5rem;
 
   @media (min-width: 48rem) {
-    padding: 0.625rem 2.5rem;
+    padding: .75rem 1.25rem .75rem 2.5rem;
   }
 `;
 
@@ -50,7 +51,7 @@ const LogoImgDesktop = styled.img`
     display: block;
     height: 1.25rem;
     position: static;
-    padding-right: 1.5rem;
+    padding-right: 1rem;
   }
 `;
 
@@ -59,9 +60,12 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
-  gap: 10px;
   position: relative;
   z-index: 3;
+
+  @media (min-width: 48rem) {
+    gap: .75rem;
+    }
 `;
 
 const MenuIcon = styled.button`
@@ -71,7 +75,6 @@ const MenuIcon = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding-left: 1.25rem;
   z-index: 3;
 
   @media (min-width: 48rem) {
@@ -83,10 +86,13 @@ const BellIcon = styled.button`
   background: none;
   border: none;
   display: flex;
-  padding-right: 0.625rem;
+  padding-right: 0.5rem;
   align-items: center;
   cursor: pointer;
   font-size: 1.125rem;
+  @media (min-width: 48rem) {
+    padding-right: 0.625rem;
+  }
 `;
 
 const UserAvatar = styled.div`
@@ -100,8 +106,11 @@ const UserAvatar = styled.div`
   justify-content: center;
   border-radius: 50%;
   font-weight: bold;
-  font-size: 0.6rem;
+  font-size: .7rem;
   text-transform: uppercase;
+  @media (min-width: 48rem) {
+    font-size: .875rem;
+  }
 `;
 
 const PlusButton = styled.button`
@@ -111,8 +120,9 @@ const PlusButton = styled.button`
     background-color: transparent;
     border: none;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.2125rem;
     display: flex;
+    padding: 0 1.2rem;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -129,7 +139,7 @@ const LanguageButton = styled.button`
     border-radius: 0.25rem;
     color: white;
     font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
+    padding: .1875rem .3125rem;
     cursor: pointer;
 
     &:hover {
@@ -142,9 +152,18 @@ const LanguageButton = styled.button`
 const SearchToggleBtn = styled.button`
   background: none;
   border: none;
-  font-size: 1.375rem;
+  font-size: 1.125rem;
+  margin-top: .1875rem;
   cursor: pointer;
   color: rgb(1, 180, 228);
+  padding: 0 1.375rem 0 1.25rem;
+
+
+  @media (min-width: 48rem) {
+    font-size: 1.25rem;
+    padding:  0 1.5rem;
+
+  }
 `;
 
 const SideMenu = styled.nav`
@@ -193,7 +212,7 @@ const MenuList = styled.ul`
     padding-top: 0;
     align-items: center;
     flex-direction: row;
-    gap: 2rem;
+    gap: .875rem;
     white-space: nowrap;
   }
 `;
@@ -205,6 +224,7 @@ const MenuItem = styled.li`
     color: #ffffff;
     font-weight: 400;
     font-size: 1.1875rem;
+    padding: .5rem;
     display: block;
 
     @media (min-width: 48rem) {
