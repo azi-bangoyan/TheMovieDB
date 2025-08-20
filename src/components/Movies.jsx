@@ -246,7 +246,7 @@ const MovieList = styled.div`
 
   @media (min-width: 48rem) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(11.25rem, 1fr));
     gap: 1.5rem;
   }
 `;
