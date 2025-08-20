@@ -248,8 +248,8 @@ const MovieList = styled.div`
 
   @media (min-width: 48rem) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(11.25rem, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(9.75rem, 1fr));
+    gap: 2rem;
   }
 `;
 
@@ -344,7 +344,6 @@ const RatingBadgeWrap = styled.div`
       var(--color) var(--deg),
       rgba(255, 255, 255, 0.06) var(--deg)
     );
-    box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.35);
     z-index: 4;
   }
 `;

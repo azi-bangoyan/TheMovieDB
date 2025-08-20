@@ -50,7 +50,7 @@ const LogoImgDesktop = styled.img`
     display: block;
     height: 1.25rem;
     position: static;
-    padding-right: 1.375rem;
+    padding-right: 1.5rem;
   }
 `;
 
@@ -59,6 +59,7 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+  gap: 10px;
   position: relative;
   z-index: 3;
 `;
@@ -141,7 +142,7 @@ const LanguageButton = styled.button`
 const SearchToggleBtn = styled.button`
   background: none;
   border: none;
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   cursor: pointer;
   color: rgb(1, 180, 228);
 `;
@@ -207,7 +208,9 @@ const MenuItem = styled.li`
     display: block;
 
     @media (min-width: 48rem) {
-      font-size: 0.875rem;
+      font-size: 1rem;
+      letter-spacing: .0313rem;
+
     }
 
     &:hover > ul {
